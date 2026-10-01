@@ -63,6 +63,21 @@ the canonical character-vector arguments without changing their contents.
 The adapter does not add a second aggregation method, infer metadata fields,
 or run a downstream statistical model.
 
+## Canonical registration plan
+
+After this adapter is reviewed and accepted, a separate canonical OMIX pull
+request should add
+`https://github.com/NIDAP-Community/OMIX-Seurat-Pseudobulk` to the module's
+`deployment_adapters` list and link the adapter from the canonical module
+README. That registration must not copy Code Ocean configuration into OMIX or
+change the module's scientific version merely because the adapter exists.
+
+One canonical contract detail also requires domain-owner review before
+release: the interface currently presents `feature_id_column` as a general
+string parameter, while the bundle writer rejects every value other than
+`GeneName`. The adapter exposes the parameter as required by the schema and
+documents the current restriction; it does not relax or reimplement it.
+
 ## Synchronization procedure
 
 1. Make scientific or reusable-interface changes in canonical OMIX.
