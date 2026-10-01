@@ -11,6 +11,7 @@ panel = json.loads(panel_text)
 
 assert panel["named_parameters"] is True
 assert "help_text" not in panel_text
+assert panel["datasets"] == []
 
 parameters = panel["parameters"]
 names = [parameter.get("param_name") for parameter in parameters]

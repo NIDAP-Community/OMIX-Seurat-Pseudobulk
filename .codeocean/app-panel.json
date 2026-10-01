@@ -5,6 +5,7 @@
     "title": "OMIX Seurat Pseudobulk",
     "instructions": "Create one donor-level expression bundle for one selected cell type from a Seurat RDS. Upload one object with Seurat RDS, or attach one data asset containing exactly one .rds and leave the selector blank. Enter exact, case-sensitive donor, group, and cell-type metadata column names plus one cell-type value.\n\nUse sum_counts for raw pseudobulk counts sent to OMIX DEG Analysis. Use mean_harmony_corrected_expression or mean_sctransform_expression only for compatible corrected expression sent to OMIX Limma Analysis. Keep the output matrix, Pseudobulk_Sample_Metadata.csv, and Pseudobulk_Manifest.dcf together."
   },
+  "datasets": [],
   "categories": [
     {
       "id": "input",
