@@ -4,11 +4,11 @@
 
 - **Module:** [OMIX Seurat Pseudobulk](https://github.com/NIDAP-Community/OMIX/tree/main/modules/OMIX-Seurat-Pseudobulk)
 - **Canonical path:** `modules/OMIX-Seurat-Pseudobulk/`
-- **Canonical module version:** `0.4.0`
+- **Canonical module version:** `0.4.1`
 - **Canonical interface version:** `1`
 - **Canonical release tag:** **Pending** — no validated namespaced module tag is established.
-- **Canonical source reference:** [`b39dbff7f04ff47b2235a454209a3fb4812e763c`](https://github.com/NIDAP-Community/OMIX/commit/b39dbff7f04ff47b2235a454209a3fb4812e763c)
-- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/b39dbff7f04ff47b2235a454209a3fb4812e763c/modules/OMIX-Seurat-Pseudobulk/schemas/interface.yml)
+- **Canonical source reference:** [`e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96`](https://github.com/NIDAP-Community/OMIX/commit/e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96)
+- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96/modules/OMIX-Seurat-Pseudobulk/schemas/interface.yml)
 - **Module contract:** [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
 
 ## Adapter release record
@@ -35,7 +35,7 @@ environment identity, capsule run, and platform release are separate facts.
 
 | Canonical file | Adapter copy | SHA-256 | Purpose |
 | --- | --- | --- | --- |
-| `R/Seurat_Pseudobulk.R` | `code/functions/Seurat_Pseudobulk.R` | `52493e6b1be66fadec0343ba7821911efae382f741bad694f9ca00574ae2c16c` | Canonical aggregation and output-bundle implementation |
+| `R/Seurat_Pseudobulk.R` | `code/functions/Seurat_Pseudobulk.R` | `c1bc96c3135ca4d48aa1bb231e8a223b12d0040ccc92d5c0c17aae9bdd5c30cf` | Canonical aggregation and output-bundle implementation |
 
 The complete canonical `R/` tree contains this one file at the recorded source
 commit. The adapter copy is byte-identical; no formatting or behavioral edit
@@ -72,11 +72,10 @@ request should add
 README. That registration must not copy Code Ocean configuration into OMIX or
 change the module's scientific version merely because the adapter exists.
 
-One canonical contract detail also requires domain-owner review before
-release: the interface currently presents `feature_id_column` as a general
-string parameter, while the bundle writer rejects every value other than
-`GeneName`. The adapter exposes the parameter as required by the schema and
-documents the current restriction; it does not relax or reimplement it.
+The canonical contract fixes `feature_id_column` to `GeneName`, the only value
+implemented by the bundle writer and supported by downstream DEG and Limma
+handoffs. The App Panel presents that fixed allowed value without widening or
+reimplementing the canonical interface.
 
 ## Synchronization procedure
 

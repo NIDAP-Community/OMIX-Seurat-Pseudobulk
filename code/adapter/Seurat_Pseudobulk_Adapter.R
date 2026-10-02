@@ -95,9 +95,9 @@ omix_pseudobulk_write_adapter_summary <- function(
     paste("Aggregation method:", aggregation_method),
     paste("Requested assay:", assay),
     paste("Requested layer:", layer),
-    "Canonical module version: 0.4.0",
+    "Canonical module version: 0.4.1",
     "Canonical interface version: 1",
-    "Canonical source: b39dbff7f04ff47b2235a454209a3fb4812e763c",
+    "Canonical source: e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96",
     paste0(
       "Published runtime: ghcr.io/nidap-community/omix-r-seurat-conversion@",
       "sha256:4399e2e2da1947b555a96b52e0b33632312b0608d7cef8c74ad2b1947335862c"

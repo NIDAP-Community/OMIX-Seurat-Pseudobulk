@@ -20,7 +20,7 @@ option_list <- list(
   make_option("--aggregation_method", type = "character", default = "sum_counts", help = "sum_counts, mean_harmony_corrected_expression, or mean_sctransform_expression [default: %default]"),
   make_option("--assay", type = "character", default = "auto", help = "Source assay or auto [default: %default]"),
   make_option("--layer", type = "character", default = "auto", help = "Source layer or auto [default: %default]"),
-  make_option("--feature_id_column", type = "character", default = "GeneName", help = "Output feature-ID column [default: %default]"),
+  make_option("--feature_id_column", type = "character", default = "GeneName", help = "Fixed downstream feature-ID column [default: %default]"),
   make_option("--min_cells", type = "integer", default = 20L, help = "Minimum selected cells per donor/group profile [default: %default]"),
   make_option("--on_insufficient_cells", type = "character", default = "error", help = "error or drop [default: %default]"),
   make_option("--output_dir", type = "character", default = "", help = "Platform-managed output directory; defaults to /results")
@@ -40,6 +40,12 @@ for (name in c("donor_column", "group_column", "cell_type_column", "cell_type"))
   if (is.null(value) || length(value) != 1L || is.na(value) || !nzchar(trimws(value))) {
     stop("--", name, " is required.", call. = FALSE)
   }
+}
+if (!identical(opt$feature_id_column, "GeneName")) {
+  stop(
+    "--feature_id_column is fixed to GeneName for compatible downstream handoffs.",
+    call. = FALSE
+  )
 }
 
 code_dir <- omix_adapter_code_dir()

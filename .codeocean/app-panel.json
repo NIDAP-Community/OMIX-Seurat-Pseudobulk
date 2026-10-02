@@ -148,10 +148,13 @@
       "param_name": "feature_id_column",
       "category": "advanced",
       "name": "Feature ID Column",
-      "description": "Output feature-ID column. The current downstream OMIX handoff requires GeneName.",
-      "type": "text",
+      "description": "Fixed output feature-ID column required by the downstream OMIX DEG and Limma handoff contracts.",
+      "type": "list",
       "value_type": "string",
-      "default_value": "GeneName"
+      "default_value": "GeneName",
+      "extra_data": [
+        "GeneName"
+      ]
     },
     {
       "id": "min_cells",

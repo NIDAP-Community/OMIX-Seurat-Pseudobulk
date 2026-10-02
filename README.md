@@ -56,6 +56,9 @@ The selected object must contain:
    cell-level filter.
 5. Run the capsule and keep the matrix, metadata, and manifest together.
 
+The feature identifier is fixed to `GeneName` so that every output bundle
+matches the downstream OMIX DEG and Limma handoff contracts.
+
 ### Aggregation and downstream routing
 
 | Aggregation method | Default source | Output matrix | Required downstream route |

@@ -37,6 +37,7 @@ assert len(names) == len(set(names))
 main_text = Path("code/main.R").read_text()
 cli_names = set(re.findall(r'make_option\("--([a-z0-9_]+)"', main_text))
 assert cli_names == set(expected) | {"output_dir"}, sorted(cli_names)
+assert "--feature_id_column is fixed to GeneName" in main_text
 
 by_name = {parameter["param_name"]: parameter for parameter in parameters}
 expected_defaults = {
@@ -66,6 +67,8 @@ assert by_name["aggregation_method"]["extra_data"] == [
     "mean_harmony_corrected_expression",
     "mean_sctransform_expression",
 ]
+assert by_name["feature_id_column"]["type"] == "list"
+assert by_name["feature_id_column"]["extra_data"] == ["GeneName"]
 assert by_name["on_insufficient_cells"]["extra_data"] == ["error", "drop"]
 assert "output_dir" not in names
 
