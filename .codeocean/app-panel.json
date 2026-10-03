@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "named_parameters": true,
+  "general": {
+    "title": "OMIX Seurat Pseudobulk",
+    "instructions": "Create one donor-level expression bundle for one selected cell type from a Seurat RDS. Upload one object with Seurat RDS, or attach one data asset containing exactly one .rds and leave the selector blank. Enter exact, case-sensitive donor, group, and cell-type metadata column names plus one cell-type value.\n\nUse sum_counts for raw pseudobulk counts sent to OMIX DEG Analysis. Use mean_harmony_corrected_expression or mean_sctransform_expression only for compatible corrected expression sent to OMIX Limma Analysis. Keep the output matrix, Pseudobulk_Sample_Metadata.csv, and Pseudobulk_Manifest.dcf together."
+  },
+  "datasets": [],
+  "categories": [
+    {
+      "id": "input",
+      "name": "Input Object",
+      "description": "Provide exactly one Seurat RDS and identify its cell metadata."
+    },
+    {
+      "id": "selection",
+      "name": "Cell Selection",
+      "description": "Select one exact cell type and optional cell-level filters."
+    },
+    {
+      "id": "aggregation",
+      "name": "Aggregation and Handoff",
+      "description": "Choose the matrix semantics and corresponding downstream route."
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced",
+      "description": "Override source layers or profile-retention controls only when justified by the object."
+    }
+  ],
+  "parameters": [
+    {
+      "id": "seurat_rds",
+      "param_name": "seurat_rds",
+      "category": "input",
+      "name": "Seurat RDS",
+      "description": "Optional explicit .rds upload or selection. Leave blank only when attached data contains exactly one RDS; the adapter then discovers it recursively.",
+      "type": "file",
+      "value_type": "string"
+    },
+    {
+      "id": "donor_column",
+      "param_name": "donor_column",
+      "category": "input",
+      "name": "Donor Metadata Column",
+      "description": "Exact cell-metadata column identifying independent biological donors or replicates.",
+      "type": "text",
+      "value_type": "string",
+      "required": true
+    },
+    {
+      "id": "group_column",
+      "param_name": "group_column",
+      "category": "input",
+      "name": "Experimental Group Column",
+      "description": "Exact cell-metadata column identifying the experimental condition written as Group in the output metadata.",
+      "type": "text",
+      "value_type": "string",
+      "required": true
+    },
+    {
+      "id": "cell_type_column",
+      "param_name": "cell_type_column",
+      "category": "selection",
+      "name": "Cell-Type Metadata Column",
+      "description": "Exact cell-metadata column containing cell-type labels.",
+      "type": "text",
+      "value_type": "string",
+      "required": true
+    },
+    {
+      "id": "cell_type",
+      "param_name": "cell_type",
+      "category": "selection",
+      "name": "Cell Type",
+      "description": "One exact, case-sensitive cell-type value to retain and aggregate.",
+      "type": "text",
+      "value_type": "string",
+      "required": true
+    },
+    {
+      "id": "metadata_columns",
+      "param_name": "metadata_columns",
+      "category": "input",
+      "name": "Additional Sample Metadata Columns",
+      "description": "Optional comma-separated cell-metadata columns, such as Batch or Sex. Each must be non-missing and invariant within every donor-by-group profile.",
+      "type": "text",
+      "value_type": "string",
+      "default_value": ""
+    },
+    {
+      "id": "cell_filter_column",
+      "param_name": "cell_filter_column",
+      "category": "selection",
+      "name": "Cell Filter Column",
+      "description": "Optional exact cell-metadata column used for pre-aggregation filtering. Supply Cell Filter Values as well.",
+      "type": "text",
+      "value_type": "string",
+      "default_value": ""
+    },
+    {
+      "id": "cell_filter_values",
+      "param_name": "cell_filter_values",
+      "category": "selection",
+      "name": "Cell Filter Values",
+      "description": "Optional comma-separated values retained from Cell Filter Column. Supply both filter fields or leave both blank.",
+      "type": "text",
+      "value_type": "string",
+      "default_value": ""
+    },
+    {
+      "id": "aggregation_method",
+      "param_name": "aggregation_method",
+      "category": "aggregation",
+      "name": "Aggregation Method",
+      "description": "sum_counts writes raw pseudobulk for edgeR/voom; Harmony and SCTransform mean modes write continuous donor means for direct limma.",
+      "type": "list",
+      "value_type": "string",
+      "default_value": "sum_counts",
+      "extra_data": [
+        "sum_counts",
+        "mean_harmony_corrected_expression",
+        "mean_sctransform_expression"
+      ]
+    },
+    {
+      "id": "assay",
+      "param_name": "assay",
+      "category": "advanced",
+      "name": "Source Assay",
+      "description": "auto resolves to RNA for sum_counts, Harmony for Harmony-corrected means, and SCT for SCTransform means.",
+      "type": "text",
+      "value_type": "string",
+      "default_value": "auto"
+    },
+    {
+      "id": "layer",
+      "param_name": "layer",
+      "category": "advanced",
+      "name": "Source Layer",
+      "description": "auto resolves to counts for sum_counts and data for continuous modes. SCTransform means require data.",
+      "type": "text",
+      "value_type": "string",
+      "default_value": "auto"
+    },
+    {
+      "id": "feature_id_column",
+      "param_name": "feature_id_column",
+      "category": "advanced",
+      "name": "Feature ID Column",
+      "description": "Fixed output feature-ID column required by the downstream OMIX DEG and Limma handoff contracts.",
+      "type": "list",
+      "value_type": "string",
+      "default_value": "GeneName",
+      "extra_data": [
+        "GeneName"
+      ]
+    },
+    {
+      "id": "min_cells",
+      "param_name": "min_cells",
+      "category": "advanced",
+      "name": "Minimum Cells Per Profile",
+      "description": "Minimum selected cells required in each donor-by-group profile.",
+      "type": "text",
+      "value_type": "number",
+      "default_value": "20",
+      "minimum": 1
+    },
+    {
+      "id": "on_insufficient_cells",
+      "param_name": "on_insufficient_cells",
+      "category": "advanced",
+      "name": "Insufficient-Cell Handling",
+      "description": "error stops when any profile has too few cells. drop intentionally removes under-populated profiles.",
+      "type": "list",
+      "value_type": "string",
+      "default_value": "error",
+      "extra_data": [
+        "error",
+        "drop"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "file_name": "Pseudobulk_Counts.csv"
+    },
+    {
+      "file_name": "Harmony_Mean_Expression.csv"
+    },
+    {
+      "file_name": "SCT_Mean_Log2_Expression.csv"
+    },
+    {
+      "file_name": "Pseudobulk_Sample_Metadata.csv"
+    },
+    {
+      "file_name": "Pseudobulk_Manifest.dcf"
+    },
+    {
+      "file_name": "Pseudobulk_Run_Summary.txt"
+    },
+    {
+      "file_name": "Adapter_Run_Summary.txt"
+    }
+  ]
+}

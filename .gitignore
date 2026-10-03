@@ -1,0 +1,21 @@
+# Code Ocean inputs and generated outputs
+/data/
+/results/
+/scratch/
+
+# Local R, editor, and operating-system state
+.DS_Store
+.RData
+.Rhistory
+.Rproj.user/
+
+# Credentials and environment overrides
+.env
+.env.*
+!.env.example
+
+# Package and test caches
+/renv/library/
+/renv/staging/
+__pycache__/
+*.pyc
