@@ -1,6 +1,6 @@
-# hash:sha256:64776c9f58a5c9b9aefc187d701f9c6840104ad7d93d8f71820cef2d389942bc
+# hash:sha256:af8329c48cf1a77f03b7274e5debb0df3b898a993ec4682e6547a654ef2ea6c6
 ARG REGISTRY_HOST
-FROM $REGISTRY_HOST/codeocean/omix-r-seurat-conversion:r4.4.3-v1
+FROM $REGISTRY_HOST/codeocean/omix-r-seurat-conversion:r4.4.3-v2
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG GIT_ASKPASS

@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"base_image": "codeocean/omix-r-seurat-conversion:r4.4.3-v1",
+	"base_image": "codeocean/omix-r-seurat-conversion:r4.4.3-v2",
 	"options": {
 		"registry_host_arg": true,
 		"git_ask_pass": true,
