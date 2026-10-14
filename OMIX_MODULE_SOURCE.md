@@ -4,11 +4,11 @@
 
 - **Module:** [OMIX Seurat Pseudobulk](https://github.com/NIDAP-Community/OMIX/tree/main/modules/OMIX-Seurat-Pseudobulk)
 - **Canonical path:** `modules/OMIX-Seurat-Pseudobulk/`
-- **Canonical module version:** `0.4.1`
+- **Canonical module version:** `0.4.2`
 - **Canonical interface version:** `1`
 - **Canonical release tag:** **Pending** — no validated namespaced module tag is established.
-- **Canonical source reference:** [`e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96`](https://github.com/NIDAP-Community/OMIX/commit/e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96)
-- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96/modules/OMIX-Seurat-Pseudobulk/schemas/interface.yml)
+- **Canonical source reference:** [`79adee59eb1ed021b7a08288eaca6bd11d11fe04`](https://github.com/NIDAP-Community/OMIX/commit/79adee59eb1ed021b7a08288eaca6bd11d11fe04)
+- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/79adee59eb1ed021b7a08288eaca6bd11d11fe04/modules/OMIX-Seurat-Pseudobulk/schemas/interface.yml)
 - **Module contract:** [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
 
 ## Adapter release record
@@ -19,11 +19,12 @@
 | Adapter release tag | **Pending** representative platform validation and explicit approval. |
 | Platform release | **Pending** Code Ocean capsule creation, validation, and release approval. |
 | Canonical runtime profile | `r-seurat-conversion` |
-| Published OMIX runtime | `ghcr.io/nidap-community/omix-r-seurat-conversion:r4.4.3-v1`; immutable public identity `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:4399e2e2da1947b555a96b52e0b33632312b0608d7cef8c74ad2b1947335862c` |
-| Runtime lockfile | `starter-environments/r-seurat-conversion/renv.lock` at canonical source commit; SHA-256 `a0af1162d74d10fcf8cda9313e67b9db575d72adc04ed9b9d56f4909d0b08b29` |
-| Runtime publication evidence | [GitHub Actions run 35920756817](https://github.com/NIDAP-Community/OMIX/actions/runs/35920756817) |
-| Runtime verification evidence | [GitHub Actions run 35999065628](https://github.com/NIDAP-Community/OMIX/actions/runs/35999065628) |
-| Adapter-selected base image | `codeocean/omix-r-seurat-conversion:r4.4.3-v1` |
+| Published OMIX runtime | `ghcr.io/nidap-community/omix-r-seurat-conversion:r4.4.3-v2`; immutable public identity `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a` |
+| Runtime source commit | [`75c917e76d00c9230db0f95df9efb560867cca85`](https://github.com/NIDAP-Community/OMIX/commit/75c917e76d00c9230db0f95df9efb560867cca85) |
+| Runtime lockfile | `starter-environments/r-seurat-conversion/renv.lock` at runtime source commit `75c917e76d00c9230db0f95df9efb560867cca85`; SHA-256 `a0af1162d74d10fcf8cda9313e67b9db575d72adc04ed9b9d56f4909d0b08b29` |
+| Runtime publication evidence | [GitHub Actions run 37257911813](https://github.com/NIDAP-Community/OMIX/actions/runs/37257911813) |
+| Runtime verification evidence | [GitHub Actions run 37259683505](https://github.com/NIDAP-Community/OMIX/actions/runs/37259683505) |
+| Adapter-selected base image | `codeocean/omix-r-seurat-conversion:r4.4.3-v2` |
 | Code Ocean environment identity | **Pending** import and immutable resolution in Code Ocean; it is not inferred from GHCR. |
 | Capsule run | **Pending** representative validation of all three aggregation modes. |
 | Syncweaver mapping | `.syncweaver-lock.json` **Pending** generation by Syncweaver; the initial interim Harbor export and hashes are recorded below. |
@@ -39,7 +40,9 @@ environment identity, capsule run, and platform release are separate facts.
 
 The complete canonical `R/` tree contains this one file at the recorded source
 commit. The adapter copy is byte-identical; no formatting or behavioral edit
-was applied.
+was applied. The `0.4.2` legacy `Harmony/data` compatibility correction is in
+the `OmixSeurat` bridge and the published v2 conversion runtime, not in this
+module-owned R file.
 
 ## Syncweaver mapping
 
@@ -63,14 +66,19 @@ the canonical character-vector arguments without changing their contents.
 The adapter does not add a second aggregation method, infer metadata fields,
 or run a downstream statistical model.
 
-## Canonical registration plan
+## Platform-validation status
 
-After this adapter is reviewed and accepted, a separate canonical OMIX pull
-request should add
-`https://github.com/NIDAP-Community/OMIX-Seurat-Pseudobulk` to the module's
-`deployment_adapters` list and link the adapter from the canonical module
-README. That registration must not copy Code Ocean configuration into OMIX or
-change the module's scientific version merely because the adapter exists.
+The Code Ocean environment's immutable identity and all current-candidate
+capsule runs remain **Pending**. Historical v1-runtime runs do not validate
+this `0.4.2`/v2 candidate: raw run `1149091` and SCT run `1149544` exercised
+the pre-v2 adapter, while Harmony run `1149333` failed and motivated the
+bridge/runtime correction. No cross-environment equivalence claim is made.
+
+## Canonical registration
+
+The canonical module's `deployment_adapters` list and README register
+`https://github.com/NIDAP-Community/OMIX-Seurat-Pseudobulk`. Code Ocean
+configuration remains solely in this deployment repository.
 
 The canonical contract fixes `feature_id_column` to `GeneName`, the only value
 implemented by the bundle writer and supported by downstream DEG and Limma

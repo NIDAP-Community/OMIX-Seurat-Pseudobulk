@@ -88,17 +88,23 @@ when handing continuous Harmony or SCT means to OMIX Limma Analysis.
 
 - **Runtime profile:** `r-seurat-conversion`
 - **Published OMIX image:**
-  `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:4399e2e2da1947b555a96b52e0b33632312b0608d7cef8c74ad2b1947335862c`
+  `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a`
 - **Code Ocean selection:**
-  `codeocean/omix-r-seurat-conversion:r4.4.3-v1`
+  `codeocean/omix-r-seurat-conversion:r4.4.3-v2`
 - **Canonical source and pending platform evidence:**
   [OMIX_MODULE_SOURCE.md](OMIX_MODULE_SOURCE.md)
 
+Canonical module `0.4.2` keeps the same byte-identical pseudobulk function as
+`0.4.1`. Its legacy `Harmony/data` compatibility correction is supplied by
+OmixSeurat 0.3.1 in the v2 conversion runtime, not by an adapter-side or
+module-function change.
+
 The public GHCR digest and the imported Code Ocean environment identity are
-separate facts. The Code Ocean identity remains pending until the environment
-is imported and resolved on that platform. Record the input-asset version,
-selected parameters, adapter commit, and complete runtime identity for a
-reproducible result.
+separate facts. The Code Ocean identity and all current-candidate platform
+runs remain pending until the v2 environment is imported, resolved, and used
+for the required validation. Historical v1 runs are not equivalence evidence
+for this candidate. Record the input-asset version, selected parameters,
+adapter commit, and complete runtime identity for a reproducible result.
 
 ## Troubleshooting and limitations
 

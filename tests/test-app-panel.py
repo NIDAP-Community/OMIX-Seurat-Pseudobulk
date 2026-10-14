@@ -80,7 +80,7 @@ assert by_name["on_insufficient_cells"]["extra_data"] == ["error", "drop"]
 assert "output_dir" not in names
 
 environment = json.loads(Path(".codeocean/environment.json").read_text())
-assert environment["base_image"] == "codeocean/omix-r-seurat-conversion:r4.4.3-v1"
+assert environment["base_image"] == "codeocean/omix-r-seurat-conversion:r4.4.3-v2"
 assert ":latest" not in environment["base_image"]
 
 print("OMIX Seurat Pseudobulk App Panel and runtime bindings passed")
