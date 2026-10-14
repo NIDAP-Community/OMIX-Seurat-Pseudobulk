@@ -95,12 +95,12 @@ omix_pseudobulk_write_adapter_summary <- function(
     paste("Aggregation method:", aggregation_method),
     paste("Requested assay:", assay),
     paste("Requested layer:", layer),
-    "Canonical module version: 0.4.1",
+    "Canonical module version: 0.4.2",
     "Canonical interface version: 1",
-    "Canonical source: e3cc933ad812ca4af8fc6427e1f23e2a2ccd5e96",
+    "Canonical source: 79adee59eb1ed021b7a08288eaca6bd11d11fe04",
     paste0(
       "Published runtime: ghcr.io/nidap-community/omix-r-seurat-conversion@",
-      "sha256:4399e2e2da1947b555a96b52e0b33632312b0608d7cef8c74ad2b1947335862c"
+      "sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a"
     ),
     "Code Ocean environment identity: pending platform resolution"
   )
