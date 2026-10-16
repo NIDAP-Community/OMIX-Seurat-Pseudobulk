@@ -14,6 +14,11 @@
 
 ### Changed
 
+- Declared the attached representative Seurat asset in the App Panel's
+  top-level `datasets` array so a released capsule can expose a replaceable
+  workflow input node. This changes deployment wiring only; aggregation
+  behavior, managed scientific code, runtime, and standalone input discovery
+  are unchanged.
 - Synchronized the managed scientific export with canonical OMIX Seurat
   Pseudobulk `0.4.1`.
 - Fixed the Code Ocean `feature_id_column` control to the canonical and
