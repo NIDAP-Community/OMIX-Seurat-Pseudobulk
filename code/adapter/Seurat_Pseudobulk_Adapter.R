@@ -86,7 +86,10 @@ omix_pseudobulk_write_adapter_summary <- function(
   output_dir,
   aggregation_method,
   assay,
-  layer
+  layer,
+  cell_type_mode = "one",
+  cell_type = "",
+  cell_type_selection = ""
 ) {
   lines <- c(
     "OMIX Seurat Pseudobulk Code Ocean adapter summary",
@@ -95,9 +98,12 @@ omix_pseudobulk_write_adapter_summary <- function(
     paste("Aggregation method:", aggregation_method),
     paste("Requested assay:", assay),
     paste("Requested layer:", layer),
-    "Canonical module version: 0.4.2",
+    paste("Cell-type mode:", cell_type_mode),
+    paste("Cell type:", if (nzchar(cell_type)) cell_type else "(not supplied)"),
+    paste("Cell-type selection:", if (nzchar(cell_type_selection)) cell_type_selection else "(not supplied)"),
+    "Canonical module version: 0.5.0",
     "Canonical interface version: 1",
-    "Canonical source: 79adee59eb1ed021b7a08288eaca6bd11d11fe04",
+    "Canonical source: c04608a215aae16d15296036e2df6975a6c34b94",
     paste0(
       "Published runtime: ghcr.io/nidap-community/omix-r-seurat-conversion@",
       "sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a"

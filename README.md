@@ -1,9 +1,9 @@
 # OMIX Seurat Pseudobulk — Code Ocean Adapter
 
-Create one donor-level expression bundle for one selected cell type from a
-serialized Seurat object. This repository supplies the Code Ocean interface
-for the portable OMIX Seurat Pseudobulk module; it does not maintain a second
-aggregation implementation.
+Create one donor-level expression bundle for one selected cell type, an ordered
+selected set, or all retained cell types from a serialized Seurat object. This
+repository supplies the Code Ocean interface for the portable OMIX Seurat
+Pseudobulk module; it does not maintain a second aggregation implementation.
 
 ## Canonical OMIX module
 
@@ -23,8 +23,9 @@ parameter translation, result placement, and runtime selection.
 
 - A Code Ocean App Panel for every user-settable canonical parameter.
 - Direct file upload or unambiguous recursive discovery of one Seurat `.rds`.
-- Stable output under `/results` as one matrix, aligned sample metadata,
-  manifest, and provenance bundle.
+- Stable output under `/results` as either one matrix/metadata/manifest bundle
+  or a collection catalog, root collection manifest, and nested ordinary
+  bundles.
 - The dedicated `r-seurat-conversion` compatibility runtime.
 
 ## Input
@@ -42,14 +43,17 @@ RDS. It never chooses an object by timestamp or directory order.
 The selected object must contain:
 
 - cell metadata columns for donor, experimental group, and cell type;
-- the exact cell-type value requested in the App Panel; and
+- the exact cell-type value requested in one mode, or the selected/all labels
+  requested in collection mode; and
 - the assay and layer required by the selected aggregation method.
 
 ## Run the analysis
 
 1. Provide the Seurat RDS.
-2. Enter the donor, group, and cell-type metadata column names and one exact
-   cell-type value.
+2. Enter the donor, group, and cell-type metadata column names. Choose
+   **Cell-Type Mode**: `one` requires one exact **Cell Type**; `selected`
+   requires an ordered CSV, TSV, or TXT file with exactly one `CellType`
+   column; `all` enumerates every non-missing label remaining after filtering.
 3. Select the aggregation method. Keep `assay` and `layer` at `auto` unless
    the object uses a documented alternative.
 4. Optionally retain invariant donor-level metadata or apply one explicit
@@ -67,9 +71,9 @@ matches the downstream OMIX DEG and Limma handoff contracts.
 | `mean_harmony_corrected_expression` | `Harmony/data` | `Harmony_Mean_Expression.csv` | OMIX Limma Analysis; manifest selects `ebayes` |
 | `mean_sctransform_expression` | `SCT/data` | `SCT_Mean_Log2_Expression.csv` | OMIX Limma Analysis; manifest selects `ebayes_trend` |
 
-The capsule does not fit a DEG model and does not aggregate all cell types in
-one invocation. Run it once for each cell type requiring its own biological
-comparison.
+The capsule does not fit a DEG model. Collection mode creates one independent
+ordinary pseudobulk bundle per cell type; it does not pool cells or fit a
+cell-type-by-group interaction model.
 
 ## Outputs and workflow handoff
 
@@ -80,9 +84,16 @@ comparison.
 | `Pseudobulk_Manifest.dcf` | Matrix semantics and downstream model recommendation | Prevents raw and continuous matrices from being interchanged |
 | `Pseudobulk_Run_Summary.txt` | Canonical aggregation and bridge provenance | Run audit |
 | `Adapter_Run_Summary.txt` | Resolved Code Ocean input and source/runtime references | Deployment audit |
+| `Cell_Type_Profile_Catalog.csv` | Collection profile eligibility and nested bundle paths | Selected/all collection routing and audit |
+| `Pseudobulk_Collection_Manifest.dcf` | Root collection routing/provenance record | OMIX Limma Analysis `cell_type_collection` route |
+| `Pseudobulk_Collection_Run_Summary.txt` | Collection selection and aggregation summary | Run audit |
 
-Treat these files as one coherent result bundle. The manifest is not optional
-when handing continuous Harmony or SCT means to OMIX Limma Analysis.
+Treat these files as one coherent result bundle. In one mode, the ordinary
+manifest is not optional when handing continuous Harmony or SCT means to OMIX
+Limma Analysis. In selected/all mode, preserve the root collection manifest,
+catalog, and complete `cell_types/<stable-id>/` tree; the updated Limma
+collection route validates these before producing `L2P_Multi_Input.csv` for
+L2P Multi.
 
 ## Environment and reproducibility
 
@@ -94,10 +105,9 @@ when handing continuous Harmony or SCT means to OMIX Limma Analysis.
 - **Canonical source and pending platform evidence:**
   [OMIX_MODULE_SOURCE.md](OMIX_MODULE_SOURCE.md)
 
-Canonical module `0.4.2` keeps the same byte-identical pseudobulk function as
-`0.4.1`. Its legacy `Harmony/data` compatibility correction is supplied by
-OmixSeurat 0.3.1 in the v2 conversion runtime, not by an adapter-side or
-module-function change.
+Canonical module `0.5.0` adds the reviewed selected/all collection interface.
+The adapter exports its managed function byte-for-byte and preserves the
+existing `r-seurat-conversion:r4.4.3-v2` runtime selection.
 
 The public GHCR digest and the imported Code Ocean environment identity are
 separate facts. The Code Ocean identity and all current-candidate platform
