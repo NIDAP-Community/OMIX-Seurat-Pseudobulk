@@ -1,9 +1,9 @@
 metadata_version: 1
 name: OMIX Seurat Pseudobulk
 description: >-
-  Converts one selected cell type in a serialized Seurat object into aligned
-  donor-level count or continuous-expression tables and a downstream routing
-  manifest.
+  Converts one selected, selected-set, or all retained cell types in a
+  serialized Seurat object into aligned donor-level count or
+  continuous-expression tables and downstream routing manifests.
 tags:
   - single-cell
   - Seurat

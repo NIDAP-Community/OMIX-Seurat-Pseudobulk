@@ -58,13 +58,18 @@ omix_pseudobulk_write_adapter_summary(
   output_dir = root,
   aggregation_method = "sum_counts",
   assay = "RNA",
-  layer = "counts"
+  layer = "counts",
+  cell_type_mode = "selected",
+  cell_type_selection = "ordered-cell-types.csv"
 )
 summary_lines <- readLines(summary_path, warn = FALSE)
 stopifnot(
-  "Canonical module version: 0.4.2" %in% summary_lines,
+  "Cell-type mode: selected" %in% summary_lines,
+  "Cell type: (not supplied)" %in% summary_lines,
+  "Cell-type selection: ordered-cell-types.csv" %in% summary_lines,
+  "Canonical module version: 0.5.0" %in% summary_lines,
   "Canonical interface version: 1" %in% summary_lines,
-  "Canonical source: 79adee59eb1ed021b7a08288eaca6bd11d11fe04" %in% summary_lines,
+  "Canonical source: c04608a215aae16d15296036e2df6975a6c34b94" %in% summary_lines,
   paste0(
     "Published runtime: ghcr.io/nidap-community/omix-r-seurat-conversion@",
     "sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a"

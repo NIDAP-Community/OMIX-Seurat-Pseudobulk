@@ -5,8 +5,8 @@ import re
 from pathlib import Path
 
 
-expected_commit = "79adee59eb1ed021b7a08288eaca6bd11d11fe04"
-expected_hash = "c1bc96c3135ca4d48aa1bb231e8a223b12d0040ccc92d5c0c17aae9bdd5c30cf"
+expected_commit = "c04608a215aae16d15296036e2df6975a6c34b94"
+expected_hash = "a2e31545f1c168343936ab402e31419ed0331b50b6e531395ca58ca1c84036ae"
 expected_runtime_digest = (
     "sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a"
 )

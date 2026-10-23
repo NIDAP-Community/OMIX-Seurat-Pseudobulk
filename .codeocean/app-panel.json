@@ -3,7 +3,7 @@
 	"named_parameters": true,
 	"general": {
 		"title": "OMIX Seurat Pseudobulk",
-		"instructions": "Create one donor-level expression bundle for one selected cell type from a Seurat RDS. Upload one object with Seurat RDS, or attach one data asset containing exactly one .rds and leave the selector blank. Enter exact, case-sensitive donor, group, and cell-type metadata column names plus one cell-type value.\n\nUse sum_counts for raw pseudobulk counts sent to OMIX DEG Analysis. Use mean_harmony_corrected_expression or mean_sctransform_expression only for compatible corrected expression sent to OMIX Limma Analysis. Keep the output matrix, Pseudobulk_Sample_Metadata.csv, and Pseudobulk_Manifest.dcf together."
+		"instructions": "Create donor-level expression bundles from a Seurat RDS. Choose one exact cell type, an ordered selected set, or all non-missing cell types after any explicit cell filter. Upload one object with Seurat RDS, or attach one data asset containing exactly one .rds and leave the selector blank.\n\nUse sum_counts for raw pseudobulk counts sent to OMIX DEG Analysis. Use mean_harmony_corrected_expression or mean_sctransform_expression only for compatible corrected expression sent to OMIX Limma Analysis. In selected/all mode, keep the root collection manifest, profile catalog, and nested cell-type bundles together."
 	},
 	"datasets": [
 		{
@@ -20,7 +20,7 @@
 		{
 			"id": "selection",
 			"name": "Cell Selection",
-			"description": "Select one exact cell type and optional cell-level filters."
+			"description": "Choose one cell type, an ordered selected set, or all cell types, then optionally apply a cell-level filter."
 		},
 		{
 			"id": "aggregation",
@@ -74,14 +74,37 @@
 			"required": true
 		},
 		{
+			"id": "cell_type_mode",
+			"category": "selection",
+			"name": "Cell-Type Mode",
+			"param_name": "cell_type_mode",
+			"description": "one preserves the established single bundle; selected reads an ordered CellType selection table; all enumerates every non-missing label after filtering.",
+			"type": "list",
+			"value_type": "string",
+			"default_value": "one",
+			"extra_data": [
+				"one",
+				"selected",
+				"all"
+			]
+		},
+		{
 			"id": "cell_type",
 			"category": "selection",
 			"name": "Cell Type",
 			"param_name": "cell_type",
-			"description": "One exact, case-sensitive cell-type value to retain and aggregate.",
+			"description": "One exact, case-sensitive cell-type value to retain in one mode. Required only when Cell-Type Mode is one.",
 			"type": "text",
-			"value_type": "string",
-			"required": true
+			"value_type": "string"
+		},
+		{
+			"id": "cell_type_selection",
+			"category": "selection",
+			"name": "Cell-Type Selection File",
+			"param_name": "cell_type_selection",
+			"description": "Ordered CSV, TSV, or TXT table with exactly one header column named CellType. Required only when Cell-Type Mode is selected.",
+			"type": "file",
+			"value_type": "string"
 		},
 		{
 			"id": "metadata_columns",
@@ -202,6 +225,15 @@
 		},
 		{
 			"file_name": "Pseudobulk_Run_Summary.txt"
+		},
+		{
+			"file_name": "Cell_Type_Profile_Catalog.csv"
+		},
+		{
+			"file_name": "Pseudobulk_Collection_Manifest.dcf"
+		},
+		{
+			"file_name": "Pseudobulk_Collection_Run_Summary.txt"
 		},
 		{
 			"file_name": "Adapter_Run_Summary.txt"

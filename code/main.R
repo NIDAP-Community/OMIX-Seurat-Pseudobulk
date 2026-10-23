@@ -13,7 +13,9 @@ option_list <- list(
   make_option("--donor_column", type = "character", help = "Cell-metadata donor column"),
   make_option("--group_column", type = "character", help = "Cell-metadata experimental-group column"),
   make_option("--cell_type_column", type = "character", help = "Cell-metadata cell-type column"),
-  make_option("--cell_type", type = "character", help = "One exact cell-type value"),
+  make_option("--cell_type_mode", type = "character", default = "one", help = "one, selected, or all [default: %default]"),
+  make_option("--cell_type", type = "character", default = "", help = "One exact cell-type value for --cell_type_mode one"),
+  make_option("--cell_type_selection", type = "character", default = "", help = "Ordered one-column CellType CSV, TSV, or TXT table for --cell_type_mode selected"),
   make_option("--metadata_columns", type = "character", default = "", help = "Optional comma-separated invariant donor-level metadata columns"),
   make_option("--cell_filter_column", type = "character", default = "", help = "Optional cell-metadata filter column"),
   make_option("--cell_filter_values", type = "character", default = "", help = "Optional comma-separated values retained from the filter column"),
@@ -29,17 +31,32 @@ option_list <- list(
 opt <- parse_args(OptionParser(
   usage = paste(
     "Usage: %prog --donor_column DONOR --group_column GROUP",
-    "--cell_type_column CELL_TYPE_COLUMN --cell_type CELL_TYPE [options]"
+    "--cell_type_column CELL_TYPE_COLUMN --cell_type_mode MODE [options]"
   ),
   option_list = option_list,
   description = "Code Ocean adapter for canonical OMIX Seurat Pseudobulk."
 ))
 
-for (name in c("donor_column", "group_column", "cell_type_column", "cell_type")) {
+for (name in c("donor_column", "group_column", "cell_type_column")) {
   value <- opt[[name]]
   if (is.null(value) || length(value) != 1L || is.na(value) || !nzchar(trimws(value))) {
     stop("--", name, " is required.", call. = FALSE)
   }
+}
+if (!opt$cell_type_mode %in% c("one", "selected", "all")) {
+  stop("--cell_type_mode must be one, selected, or all.", call. = FALSE)
+}
+if (identical(opt$cell_type_mode, "one") && !nzchar(trimws(opt$cell_type))) {
+  stop("--cell_type is required when --cell_type_mode one.", call. = FALSE)
+}
+if (identical(opt$cell_type_mode, "selected") && !nzchar(trimws(opt$cell_type_selection))) {
+  stop("--cell_type_selection is required when --cell_type_mode selected.", call. = FALSE)
+}
+if (!identical(opt$cell_type_mode, "one") && nzchar(trimws(opt$cell_type))) {
+  stop("--cell_type is only valid when --cell_type_mode one.", call. = FALSE)
+}
+if (!identical(opt$cell_type_mode, "selected") && nzchar(trimws(opt$cell_type_selection))) {
+  stop("--cell_type_selection is only valid when --cell_type_mode selected.", call. = FALSE)
 }
 if (!identical(opt$feature_id_column, "GeneName")) {
   stop(
@@ -69,12 +86,11 @@ if (xor(is.null(cell_filter_column), is.null(cell_filter_values))) {
   )
 }
 
-result <- omix_seurat_pseudobulk(
+common_arguments <- list(
   seurat_rds = seurat_rds,
   donor_column = opt$donor_column,
   group_column = opt$group_column,
   cell_type_column = opt$cell_type_column,
-  cell_type = opt$cell_type,
   metadata_columns = omix_pseudobulk_split_csv(opt$metadata_columns),
   cell_filter_column = cell_filter_column,
   cell_filter_values = cell_filter_values,
@@ -87,18 +103,47 @@ result <- omix_seurat_pseudobulk(
   output_dir = output_dir
 )
 
+if (identical(opt$cell_type_mode, "one")) {
+  result <- do.call(
+    omix_seurat_pseudobulk,
+    c(common_arguments, list(cell_type = opt$cell_type))
+  )
+  result_message <- paste(
+    basename(result$matrix_path),
+    basename(result$metadata_path),
+    basename(result$manifest_path),
+    basename(result$run_summary_path),
+    sep = ", "
+  )
+} else {
+  result <- do.call(
+    omix_seurat_pseudobulk_collection,
+    c(common_arguments, list(
+      cell_type_mode = opt$cell_type_mode,
+      cell_type_selection = if (nzchar(trimws(opt$cell_type_selection))) opt$cell_type_selection else NULL
+    ))
+  )
+  result_message <- paste(
+    basename(result$catalog_path),
+    basename(result$collection_manifest_path),
+    basename(result$run_summary_path),
+    sep = ", "
+  )
+}
+
 adapter_summary <- omix_pseudobulk_write_adapter_summary(
   path = file.path(output_dir, "Adapter_Run_Summary.txt"),
   seurat_rds = seurat_rds,
   output_dir = output_dir,
   aggregation_method = opt$aggregation_method,
   assay = opt$assay,
-  layer = opt$layer
+  layer = opt$layer,
+  cell_type_mode = opt$cell_type_mode,
+  cell_type = opt$cell_type,
+  cell_type_selection = opt$cell_type_selection
 )
 
 message(
-  "Saved the donor-level result bundle to ", normalizePath(output_dir, mustWork = FALSE),
-  ": ", basename(result$matrix_path), ", ", basename(result$metadata_path),
-  ", ", basename(result$manifest_path), ", ", basename(result$run_summary_path),
-  ", and ", basename(adapter_summary)
+  "Saved the pseudobulk result to ", normalizePath(output_dir, mustWork = FALSE),
+  ": ", result_message, ", and ", basename(adapter_summary)
 )
