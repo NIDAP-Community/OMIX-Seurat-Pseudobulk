@@ -19,12 +19,12 @@
 | Adapter release tag | **Pending** representative platform validation and explicit approval. |
 | Platform release | **Pending** Code Ocean capsule creation, validation, and release approval. |
 | Canonical runtime profile | `r-seurat-conversion` |
-| Published OMIX runtime | `ghcr.io/nidap-community/omix-r-seurat-conversion:r4.4.3-v2`; immutable public identity `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a` |
-| Runtime source commit | [`75c917e76d00c9230db0f95df9efb560867cca85`](https://github.com/NIDAP-Community/OMIX/commit/75c917e76d00c9230db0f95df9efb560867cca85) |
-| Runtime lockfile | `starter-environments/r-seurat-conversion/renv.lock` at runtime source commit `75c917e76d00c9230db0f95df9efb560867cca85`; SHA-256 `a0af1162d74d10fcf8cda9313e67b9db575d72adc04ed9b9d56f4909d0b08b29` |
-| Runtime publication evidence | [GitHub Actions run 37257911813](https://github.com/NIDAP-Community/OMIX/actions/runs/37257911813) |
-| Runtime verification evidence | [GitHub Actions run 37259683505](https://github.com/NIDAP-Community/OMIX/actions/runs/37259683505) |
-| Adapter-selected base image | `codeocean/omix-r-seurat-conversion:r4.4.3-v2` |
+| Published OMIX runtime | `ghcr.io/nidap-community/omix-r-seurat-conversion:r4.4.3-v3`; immutable public identity `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:23dea282248fa4335c60f9b87538be04929acba67a10047267a0a31bd2e8391c` |
+| Runtime source commit | [`98df6d452538cc896d534e11aae4eb6a761b7f9f`](https://github.com/NIDAP-Community/OMIX/commit/98df6d452538cc896d534e11aae4eb6a761b7f9f) |
+| Runtime lockfile | `starter-environments/r-seurat-conversion/renv.lock` at runtime source commit `98df6d452538cc896d534e11aae4eb6a761b7f9f`; SHA-256 `a0af1162d74d10fcf8cda9313e67b9db575d72adc04ed9b9d56f4909d0b08b29` |
+| Runtime publication evidence | [GitHub Actions run 40106621939](https://github.com/NIDAP-Community/OMIX/actions/runs/40106621939) |
+| Runtime verification evidence | [GitHub Actions run 40110151312](https://github.com/NIDAP-Community/OMIX/actions/runs/40110151312) |
+| Adapter-selected base image | `codeocean/omix-r-seurat-conversion:r4.4.3-v3` |
 | Code Ocean environment identity | **Pending** import and immutable resolution in Code Ocean; it is not inferred from GHCR. |
 | Capsule run | **Pending** representative validation of all three aggregation modes. |
 | Syncweaver mapping | `.syncweaver-lock.json` **Pending** generation by Syncweaver; the initial interim Harbor export and hashes are recorded below. |
@@ -76,10 +76,10 @@ complete collection.
 ## Platform-validation status
 
 The Code Ocean environment's immutable identity and all current-candidate
-capsule runs remain **Pending**. Historical v1-runtime runs do not validate
-this `0.5.0`/v2 candidate: raw run `1149091` and SCT run `1149544` exercised
-the pre-v2 adapter, while Harmony run `1149333` failed and motivated the
-bridge/runtime correction. No cross-environment equivalence claim is made.
+capsule runs remain **Pending**. Historical v1- and v2-runtime runs do not
+validate this `0.5.0`/v3 candidate: raw run `1149091` and SCT run `1149544`
+exercised the pre-v2 adapter, while Harmony run `1149333` failed and motivated
+the bridge/runtime correction. No cross-environment equivalence claim is made.
 
 ## Canonical registration
 

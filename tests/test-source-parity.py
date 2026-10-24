@@ -8,7 +8,7 @@ from pathlib import Path
 expected_commit = "c04608a215aae16d15296036e2df6975a6c34b94"
 expected_hash = "a2e31545f1c168343936ab402e31419ed0331b50b6e531395ca58ca1c84036ae"
 expected_runtime_digest = (
-    "sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a"
+    "sha256:23dea282248fa4335c60f9b87538be04929acba67a10047267a0a31bd2e8391c"
 )
 expected_lockfile_hash = (
     "a0af1162d74d10fcf8cda9313e67b9db575d72adc04ed9b9d56f4909d0b08b29"
@@ -35,11 +35,11 @@ assert source_record.count(f"`{expected_hash}`") >= 1
 assert "`R/Seurat_Pseudobulk.R`" in source_record
 assert "`code/functions/Seurat_Pseudobulk.R`" in source_record
 assert ".syncweaver-lock.json` **Pending** generation by Syncweaver" in source_record
-assert "ghcr.io/nidap-community/omix-r-seurat-conversion:r4.4.3-v2" in source_record
+assert "ghcr.io/nidap-community/omix-r-seurat-conversion:r4.4.3-v3" in source_record
 assert expected_runtime_digest in source_record
 assert f"`{expected_lockfile_hash}`" in source_record
-assert "actions/runs/37257911813" in source_record
-assert "actions/runs/37259683505" in source_record
+assert "actions/runs/40106621939" in source_record
+assert "actions/runs/40110151312" in source_record
 assert "Code Ocean environment identity" in source_record
 assert "capsule runs remain **Pending**" in source_record
 

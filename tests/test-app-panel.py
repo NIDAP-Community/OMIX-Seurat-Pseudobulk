@@ -109,7 +109,7 @@ for message in [
     assert message in main_text
 
 environment = json.loads(Path(".codeocean/environment.json").read_text())
-assert environment["base_image"] == "codeocean/omix-r-seurat-conversion:r4.4.3-v2"
+assert environment["base_image"] == "codeocean/omix-r-seurat-conversion:r4.4.3-v3"
 assert ":latest" not in environment["base_image"]
 
 print("OMIX Seurat Pseudobulk App Panel and runtime bindings passed")

@@ -17,6 +17,11 @@
 
 ### Changed
 
+- Updated the Code Ocean base-image selection and runtime provenance to the
+  published `r-seurat-conversion:r4.4.3-v3` immutable image. This deployment
+  configuration update supplies OmixSeurat 0.4.0 required by selected/all
+  Pseudobulk collection; it does not change canonical aggregation behavior.
+
 - Declared the attached representative Seurat asset in the App Panel's
   top-level `datasets` array so a released capsule can expose a replaceable
   workflow input node. This changes deployment wiring only; aggregation
@@ -39,5 +44,5 @@
 
 Current-candidate Seurat-object Code Ocean runs, imported-environment identity,
 cross-environment equivalence, downstream DEG/Limma consumption, adapter
-version/tag, and platform release remain pending. Historical v1-runtime runs
-do not validate this `0.5.0`/v2 candidate.
+version/tag, and platform release remain pending. Historical v1- and
+v2-runtime runs do not validate this `0.5.0`/v3 candidate.

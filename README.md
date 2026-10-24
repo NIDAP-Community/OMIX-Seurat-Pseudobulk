@@ -99,19 +99,19 @@ L2P Multi.
 
 - **Runtime profile:** `r-seurat-conversion`
 - **Published OMIX image:**
-  `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a`
+  `ghcr.io/nidap-community/omix-r-seurat-conversion@sha256:23dea282248fa4335c60f9b87538be04929acba67a10047267a0a31bd2e8391c`
 - **Code Ocean selection:**
-  `codeocean/omix-r-seurat-conversion:r4.4.3-v2`
+  `codeocean/omix-r-seurat-conversion:r4.4.3-v3`
 - **Canonical source and pending platform evidence:**
   [OMIX_MODULE_SOURCE.md](OMIX_MODULE_SOURCE.md)
 
 Canonical module `0.5.0` adds the reviewed selected/all collection interface.
 The adapter exports its managed function byte-for-byte and preserves the
-existing `r-seurat-conversion:r4.4.3-v2` runtime selection.
+existing `r-seurat-conversion:r4.4.3-v3` runtime selection.
 
 The public GHCR digest and the imported Code Ocean environment identity are
 separate facts. The Code Ocean identity and all current-candidate platform
-runs remain pending until the v2 environment is imported, resolved, and used
+runs remain pending until the v3 environment is imported, resolved, and used
 for the required validation. Historical v1 runs are not equivalence evidence
 for this candidate. Record the input-asset version, selected parameters,
 adapter commit, and complete runtime identity for a reproducible result.
