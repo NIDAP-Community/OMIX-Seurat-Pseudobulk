@@ -8,7 +8,7 @@ bash tests/run-tests.sh
 
 These checks cover R syntax, unambiguous RDS discovery, comma-separated
 parameter translation, all three canonical output-bundle routes, App Panel
-bindings, selected/all cell-type collection controls, v2 runtime selection,
+bindings, selected/all cell-type collection controls, v3 runtime selection,
 adapter-summary provenance constants, and managed-source hashes.
 
 They do **not** restore a representative Seurat object or validate Code Ocean.

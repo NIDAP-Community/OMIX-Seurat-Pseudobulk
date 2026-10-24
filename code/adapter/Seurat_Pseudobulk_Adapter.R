@@ -106,7 +106,7 @@ omix_pseudobulk_write_adapter_summary <- function(
     "Canonical source: c04608a215aae16d15296036e2df6975a6c34b94",
     paste0(
       "Published runtime: ghcr.io/nidap-community/omix-r-seurat-conversion@",
-      "sha256:93efb77801cabe1371cdb4fffc83246f964471e7ffeeb873efff16068caa9a8a"
+      "sha256:23dea282248fa4335c60f9b87538be04929acba67a10047267a0a31bd2e8391c"
     ),
     "Code Ocean environment identity: pending platform resolution"
   )
