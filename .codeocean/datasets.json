@@ -2,8 +2,8 @@
 	"version": 1,
 	"attached_datasets": [
 		{
-			"id": "fc787e18-e381-42b8-ad91-be986796d813",
-			"mount": "combineNormalize"
+			"id": "a2511eea-c139-47b0-bc15-335b02ea7e24",
+			"mount": "chariou_singler_annotated_seurat"
 		}
 	]
 }
