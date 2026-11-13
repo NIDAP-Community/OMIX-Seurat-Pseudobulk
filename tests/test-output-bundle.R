@@ -6,7 +6,7 @@ metadata <- data.frame(
   Donor = c("D1", "D1", "D2", "D2"),
   Group = c("A", "B", "A", "B"),
   Batch = c("Run1", "Run1", "Run2", "Run2"),
-  CellType = rep("Monocytes", 4L),
+  CellCategory = rep("Monocytes", 4L),
   Cells = c(25L, 30L, 27L, 31L),
   stringsAsFactors = FALSE
 )

@@ -1,7 +1,7 @@
 metadata_version: 1
 name: OMIX Seurat Pseudobulk
 description: >-
-  Converts one selected, selected-set, or all retained cell types in a
+  Converts one selected, selected-set, or all retained cell categories in a
   serialized Seurat object into aligned donor-level count or
   continuous-expression tables and downstream routing manifests.
 tags:

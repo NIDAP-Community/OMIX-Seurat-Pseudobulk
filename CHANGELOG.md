@@ -4,7 +4,12 @@
 
 ### Added
 
-- Code Ocean translation for canonical selected/all cell-type collection mode,
+- Synchronized the managed export and Code Ocean translation with canonical
+  OMIX Seurat Pseudobulk `0.6.0`, interface `2`, at `bf27e101`. The adapter
+  now uses cell-category terminology and exposes the renamed interface and
+  collection artifact names without changing the pinned runtime.
+
+- Code Ocean translation for canonical selected/all cell-category collection mode,
   including the ordered selection-file control, root collection artifacts, and
   preserved nested ordinary bundles for downstream Limma collection routing.
 - Initial Code Ocean deployment adapter for canonical OMIX Seurat Pseudobulk
