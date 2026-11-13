@@ -12,7 +12,7 @@ panel = json.loads(panel_text)
 assert panel["named_parameters"] is True
 assert "help_text" not in panel_text
 metadata_text = Path("metadata/metadata.yml").read_text()
-assert "selected-set, or all retained cell types" in metadata_text
+assert "selected-set, or all retained cell categories" in metadata_text
 # A workflow-ready capsule declares the same representative asset both as an
 # attached `/data` mount and as a visible, replaceable workflow input node.
 datasets = json.loads(Path(".codeocean/datasets.json").read_text())
@@ -29,10 +29,10 @@ expected = [
     "seurat_rds",
     "donor_column",
     "group_column",
-    "cell_type_column",
-    "cell_type_mode",
-    "cell_type",
-    "cell_type_selection",
+    "cell_category_column",
+    "cell_category_mode",
+    "cell_category",
+    "cell_category_selection",
     "metadata_columns",
     "cell_filter_column",
     "cell_filter_values",
@@ -73,17 +73,17 @@ for name, default in expected_defaults.items():
         actual,
     )
 
-for name in ["donor_column", "group_column", "cell_type_column"]:
+for name in ["donor_column", "group_column", "cell_category_column"]:
     assert by_name[name]["required"] is True
     assert "default_value" not in by_name[name]
 
 assert by_name["seurat_rds"]["type"] == "file"
-assert by_name["cell_type_mode"]["default_value"] == "one"
-assert by_name["cell_type_mode"]["extra_data"] == ["one", "selected", "all"]
-assert by_name["cell_type"]["type"] == "text"
-assert "required" not in by_name["cell_type"]
-assert by_name["cell_type_selection"]["type"] == "file"
-assert "required" not in by_name["cell_type_selection"]
+assert by_name["cell_category_mode"]["default_value"] == "one"
+assert by_name["cell_category_mode"]["extra_data"] == ["one", "selected", "all"]
+assert by_name["cell_category"]["type"] == "text"
+assert "required" not in by_name["cell_category"]
+assert by_name["cell_category_selection"]["type"] == "file"
+assert "required" not in by_name["cell_category_selection"]
 assert by_name["aggregation_method"]["extra_data"] == [
     "sum_counts",
     "mean_harmony_corrected_expression",
@@ -95,16 +95,16 @@ assert by_name["on_insufficient_cells"]["extra_data"] == ["error", "drop"]
 assert "output_dir" not in names
 result_names = [result["file_name"] for result in panel["results"]]
 for collection_output in [
-    "Cell_Type_Profile_Catalog.csv",
+    "Cell_Category_Profile_Catalog.csv",
     "Pseudobulk_Collection_Manifest.dcf",
     "Pseudobulk_Collection_Run_Summary.txt",
 ]:
     assert collection_output in result_names
 for message in [
-    "--cell_type is required when --cell_type_mode one.",
-    "--cell_type_selection is required when --cell_type_mode selected.",
-    "--cell_type is only valid when --cell_type_mode one.",
-    "--cell_type_selection is only valid when --cell_type_mode selected.",
+    "--cell_category is required when --cell_category_mode one.",
+    "--cell_category_selection is required when --cell_category_mode selected.",
+    "--cell_category is only valid when --cell_category_mode one.",
+    "--cell_category_selection is only valid when --cell_category_mode selected.",
 ]:
     assert message in main_text
 

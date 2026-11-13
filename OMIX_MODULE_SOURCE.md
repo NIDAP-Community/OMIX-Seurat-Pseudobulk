@@ -4,11 +4,11 @@
 
 - **Module:** [OMIX Seurat Pseudobulk](https://github.com/NIDAP-Community/OMIX/tree/main/modules/OMIX-Seurat-Pseudobulk)
 - **Canonical path:** `modules/OMIX-Seurat-Pseudobulk/`
-- **Canonical module version:** `0.5.0`
-- **Canonical interface version:** `1`
+- **Canonical module version:** `0.6.0`
+- **Canonical interface version:** `2`
 - **Canonical release tag:** **Pending** — no validated namespaced module tag is established.
-- **Canonical source reference:** [`c04608a215aae16d15296036e2df6975a6c34b94`](https://github.com/NIDAP-Community/OMIX/commit/c04608a215aae16d15296036e2df6975a6c34b94)
-- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/c04608a215aae16d15296036e2df6975a6c34b94/modules/OMIX-Seurat-Pseudobulk/schemas/interface.yml)
+- **Canonical source reference:** [`bf27e1011cab40c608593b5cc3c997617a377ed2`](https://github.com/NIDAP-Community/OMIX/commit/bf27e1011cab40c608593b5cc3c997617a377ed2)
+- **Interface schema:** [schemas/interface.yml](https://github.com/NIDAP-Community/OMIX/blob/bf27e1011cab40c608593b5cc3c997617a377ed2/modules/OMIX-Seurat-Pseudobulk/schemas/interface.yml)
 - **Module contract:** [OMIX module contract](https://github.com/NIDAP-Community/OMIX/blob/main/docs/module-contract.md)
 
 ## Adapter release record
@@ -36,13 +36,14 @@ environment identity, capsule run, and platform release are separate facts.
 
 | Canonical file | Adapter copy | SHA-256 | Purpose |
 | --- | --- | --- | --- |
-| `R/Seurat_Pseudobulk.R` | `code/functions/Seurat_Pseudobulk.R` | `a2e31545f1c168343936ab402e31419ed0331b50b6e531395ca58ca1c84036ae` | Canonical aggregation and single/selected/all collection output-bundle implementation |
+| `R/Seurat_Pseudobulk.R` | `code/functions/Seurat_Pseudobulk.R` | `4bb0d9760aad6283abba14930dcc3f0f54a41006faf5624dfa209cbaa6e9933e` | Canonical aggregation and single/selected/all cell-category collection output-bundle implementation |
 
 The complete canonical `R/` tree contains this one file at the recorded source
 commit. The adapter copy is byte-identical; no formatting or behavioral edit
-was applied. The `0.5.0` collection implementation is a byte-identical
-canonical export. Its collection mode creates independent nested ordinary
-bundles and never pools cells or fits a downstream statistical model.
+was applied. The `0.6.0` interface-2 implementation is a byte-identical
+canonical export. It uses generic cell-category names, records categories
+dropped for retaining fewer than two groups, and never pools cells or fits a
+downstream statistical model.
 
 ## Syncweaver mapping
 
@@ -57,18 +58,18 @@ bundles and never pools cells or fits a downstream statistical model.
 ## Interface translation
 
 All canonical user-settable fields retain their schema names and defaults.
-`seurat_rds` and `cell_type_selection` are represented by Code Ocean file
+`seurat_rds` and `cell_category_selection` are represented by Code Ocean file
 selectors. The RDS can also be resolved from exactly one `.rds` below `/data`.
 `output_dir` is intentionally hidden and fixed to `/results` by the platform
 adapter. Comma-delimited App Panel values for `metadata_columns` and
 `cell_filter_values` are translated to the canonical character-vector
 arguments without changing their contents. The App Panel cannot express
-conditional required fields, so its descriptions identify that `cell_type` is
-required in `one` mode and `cell_type_selection` in `selected` mode; the
+conditional required fields, so its descriptions identify that `cell_category` is
+required in `one` mode and `cell_category_selection` in `selected` mode; the
 adapter enforces both conditions before sourcing the scientific function.
 
 The adapter does not add a second aggregation method, infer metadata fields,
-pool cell types, or run a downstream statistical model. In selected/all mode,
+pool cell categories, or run a downstream statistical model. In selected/all mode,
 it retains the root collection catalog and manifest plus every nested ordinary
 bundle so the downstream Limma collection route can validate and consume the
 complete collection.
@@ -77,7 +78,7 @@ complete collection.
 
 The Code Ocean environment's immutable identity and all current-candidate
 capsule runs remain **Pending**. Historical v1- and v2-runtime runs do not
-validate this `0.5.0`/v3 candidate: raw run `1149091` and SCT run `1149544`
+validate this interface-2/v3 candidate: raw run `1149091` and SCT run `1149544`
 exercised the pre-v2 adapter, while Harmony run `1149333` failed and motivated
 the bridge/runtime correction. No cross-environment equivalence claim is made.
 

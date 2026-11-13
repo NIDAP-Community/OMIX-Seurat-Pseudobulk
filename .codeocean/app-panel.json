@@ -3,7 +3,7 @@
 	"named_parameters": true,
 	"general": {
 		"title": "OMIX Seurat Pseudobulk",
-		"instructions": "Create donor-level expression bundles from a Seurat RDS. Choose one exact cell type, an ordered selected set, or all non-missing cell types after any explicit cell filter. Upload one object with Seurat RDS, or attach one data asset containing exactly one .rds and leave the selector blank.\n\nUse sum_counts for raw pseudobulk counts sent to OMIX DEG Analysis. Use mean_harmony_corrected_expression or mean_sctransform_expression only for compatible corrected expression sent to OMIX Limma Analysis. In selected/all mode, keep the root collection manifest, profile catalog, and nested cell-type bundles together."
+		"instructions": "Create donor-level expression bundles from a Seurat RDS. Choose one exact cell category, an ordered selected set, or all non-missing cell categories after any explicit cell filter. Upload one object with Seurat RDS, or attach one data asset containing exactly one .rds and leave the selector blank.\n\nUse sum_counts for raw pseudobulk counts sent to OMIX DEG Analysis. Use mean_harmony_corrected_expression or mean_sctransform_expression only for compatible corrected expression sent to OMIX Limma Analysis. In selected/all mode, keep the root collection manifest, profile catalog, and nested cell-category bundles together."
 	},
 	"datasets": [
 		{
@@ -20,7 +20,7 @@
 		{
 			"id": "selection",
 			"name": "Cell Selection",
-			"description": "Choose one cell type, an ordered selected set, or all cell types, then optionally apply a cell-level filter."
+			"description": "Choose one cell category, an ordered selected set, or all cell categories, then optionally apply a cell-level filter."
 		},
 		{
 			"id": "aggregation",
@@ -64,21 +64,21 @@
 			"required": true
 		},
 		{
-			"id": "cell_type_column",
+			"id": "cell_category_column",
 			"category": "selection",
-			"name": "Cell-Type Metadata Column",
-			"param_name": "cell_type_column",
-			"description": "Exact cell-metadata column containing cell-type labels.",
+			"name": "Cell-Category Metadata Column",
+			"param_name": "cell_category_column",
+			"description": "Exact cell-metadata column containing cell-category labels.",
 			"type": "text",
 			"value_type": "string",
 			"required": true
 		},
 		{
-			"id": "cell_type_mode",
+			"id": "cell_category_mode",
 			"category": "selection",
-			"name": "Cell-Type Mode",
-			"param_name": "cell_type_mode",
-			"description": "one preserves the established single bundle; selected reads an ordered CellType selection table; all enumerates every non-missing label after filtering.",
+			"name": "Cell-Category Mode",
+			"param_name": "cell_category_mode",
+			"description": "one preserves the established single bundle; selected reads an ordered CellCategory selection table; all enumerates every non-missing label after filtering.",
 			"type": "list",
 			"value_type": "string",
 			"default_value": "one",
@@ -89,20 +89,20 @@
 			]
 		},
 		{
-			"id": "cell_type",
+			"id": "cell_category",
 			"category": "selection",
-			"name": "Cell Type",
-			"param_name": "cell_type",
-			"description": "One exact, case-sensitive cell-type value to retain in one mode. Required only when Cell-Type Mode is one.",
+			"name": "Cell Category",
+			"param_name": "cell_category",
+			"description": "One exact, case-sensitive cell-category value to retain in one mode. Required only when Cell-Category Mode is one.",
 			"type": "text",
 			"value_type": "string"
 		},
 		{
-			"id": "cell_type_selection",
+			"id": "cell_category_selection",
 			"category": "selection",
-			"name": "Cell-Type Selection File",
-			"param_name": "cell_type_selection",
-			"description": "Ordered CSV, TSV, or TXT table with exactly one header column named CellType. Required only when Cell-Type Mode is selected.",
+			"name": "Cell-Category Selection File",
+			"param_name": "cell_category_selection",
+			"description": "Ordered CSV, TSV, or TXT table with exactly one header column named CellCategory. Required only when Cell-Category Mode is selected.",
 			"type": "file",
 			"value_type": "string"
 		},
@@ -197,7 +197,7 @@
 			"category": "advanced",
 			"name": "Insufficient-Cell Handling",
 			"param_name": "on_insufficient_cells",
-			"description": "error stops when any profile has too few cells. drop intentionally removes under-populated profiles.",
+			"description": "error stops when any profile has too few cells. In selected/all collection mode, drop removes under-populated profiles and omits a category that retains fewer than two groups.",
 			"type": "list",
 			"value_type": "string",
 			"default_value": "error",
@@ -227,7 +227,7 @@
 			"file_name": "Pseudobulk_Run_Summary.txt"
 		},
 		{
-			"file_name": "Cell_Type_Profile_Catalog.csv"
+			"file_name": "Cell_Category_Profile_Catalog.csv"
 		},
 		{
 			"file_name": "Pseudobulk_Collection_Manifest.dcf"
